@@ -61,7 +61,7 @@ function draw() {
     let offsetY = sin(angleOffset) * distanceFromTarget;
     targetBruitee.x += offsetX;
     targetBruitee.y += offsetY; 
-    snake.arrive(targetBruitee);
+    snake.move(targetBruitee);
     snake.show();
   });
 
@@ -130,7 +130,7 @@ function keyPressed() {
     let taille = floor(random(10, 50));
     // couleur aléatoire
     let couleur = color(random(255), random(255), random(255));
-    let snake = new Snake(random(width), random(height), taille, 20, couleur);
+    let snake = new SnakeWander(random(width), random(height), taille, 20, couleur);
     snakes.push(snake);
   }
   // todo : touche "s" fait le snake, "v" ajoute un véhicule,

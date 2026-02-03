@@ -17,9 +17,9 @@ class Snake extends Vehicle {
         }
     }
 
-    arrive(target) {
+    move(target) {
         // La tête arrive à la cible
-        let force = this.head.wander();
+        let force = this.head.arrive(target);
         this.head.applyForce(force);
         this.head.update();
 
