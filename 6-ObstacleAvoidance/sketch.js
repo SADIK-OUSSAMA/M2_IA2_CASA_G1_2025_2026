@@ -2,6 +2,7 @@ let pursuer1, pursuer2;
 let target;
 let obstacles = [];
 let vaisseaux = [];
+let snakes = [];
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -10,6 +11,10 @@ function setup() {
 
   vaisseaux.push(pursuer1);
   //vehicules.push(pursuer2);
+
+  // On cree un snake qui suit la souris
+  let snake = new Snake(width / 2, height / 2, 30, 30, 'lime');
+  snakes.push(snake);
 
   // On cree un obstace au milieu de l'écran
   // un cercle de rayon 100px
@@ -73,6 +78,11 @@ function draw() {
     v.update();
     v.show();
   });
+
+  snakes.forEach(snake => {
+    snake.move(target, obstacles);
+    snake.show();
+  });
 }
 
 function mousePressed() {
@@ -102,12 +112,16 @@ function keyPressed() {
     v.r_pourDessin = 25;
     v.r = 75;
     vehicules.push(v);
-  } else if(key == "s") {
-        let v = new Vehicle(random(width), random(height));
-        v.maxSpeed = 8;
-        v.color = "red";
-        v.r_pourDessin = 25;
-         v.r = 40;
-        vehicules.push(v);
+  } else if (key == "s") {
+    let v = new Vehicle(random(width), random(height));
+    v.maxSpeed = 8;
+    v.color = "red";
+    v.r_pourDessin = 25;
+    v.r = 40;
+    vehicules.push(v);
+  } else if (key == "a") {
+    // On cree un snake wander
+    let snake = new SnakeWander(random(width), random(height), 20, 20, 'cyan');
+    snakes.push(snake);
   }
 }

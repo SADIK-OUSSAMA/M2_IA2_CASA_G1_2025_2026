@@ -20,7 +20,14 @@ let requin;
 function preload() {
   // On charge une image de poisson
   fishImage = loadImage('assets/niceFishtransparent.png');
-  requinImage = loadImage('assets/requin.png');
+  //requinImage = loadImage('assets/requin.png');
+  requinImage = loadImage('assets/SharkTransparent.png');
+
+  // Préchargement du son du requin quand il mange un poisson
+  soundFormats('mp3', 'ogg');
+  eatSound = loadSound('assets/eating.wav');
+  aie = loadSound('assets/aie.wav');
+  ouuu = loadSound('assets/ouuuu.ogg');
 }
 
 function setup() {
@@ -145,6 +152,11 @@ function draw() {
     let d = p5.Vector.dist(requin.pos, closest.pos);
     if(d < rayonDeDetection) {
       // on fonce vers le poisson !!!
+      // SI LE SON N'EST PAS EN TRAIN DE JOUER ALORS ON JOUE LE SON DU REQUIN QUI FONCE VERS LE POISSON
+      if(!ouuu.isPlaying()) {
+        ouuu.play();
+      }
+
       seekForce = requin.seek(closest.pos);
       seekForce.mult(7);
       requin.applyForce(seekForce);
@@ -154,6 +166,12 @@ function draw() {
       // on retire le poisson du tableau flock
       let index = flock.indexOf(closest);
       flock.splice(index, 1);
+      // Le requin grossit en augmentant sa taille
+      requin.r += 1;
+      // On joue le son du requin qui mange
+      eatSound.play();
+      aie.play();
+
     }
   }
   requin.edges();

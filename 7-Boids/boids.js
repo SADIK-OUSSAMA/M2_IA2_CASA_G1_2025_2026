@@ -353,7 +353,7 @@ class Boid {
       translate(this.pos.x, this.pos.y);
 
       // J'ai rajouté PI car l'image était à l'envers
-      rotate(this.vel.heading() + Math.PI);
+      rotate(this.vel.heading()); //+ Math.PI;
       
       image(this.image, 0, 0, this.r, this.r);
 
